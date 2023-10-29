@@ -9,7 +9,8 @@ public class ButtonSetting : MonoBehaviour
 {
     [SerializeField] private int sceneNumber;
     [SerializeField] private Image Fade;
-    [SerializeField] private Color targetcolor;
+    [SerializeField] private Color fadeOutcolor;
+    [SerializeField] private Color fadeIncolor;
 
 
 
@@ -20,14 +21,20 @@ public class ButtonSetting : MonoBehaviour
 
     IEnumerator MoveScene()
     {
-        FadOut();
+        FadeOut();
         yield return new WaitForSecondsRealtime(2);
         SceneManager.LoadScene(sceneNumber);
     }
 
-    public void FadOut()
+    public void FadeOut()
     {
         Fade.gameObject.SetActive(true);
-        Fade.DOColor(targetcolor, 2);
+        Fade.DOColor(fadeOutcolor, 2);
+    }
+
+    public void FadeIn()
+    {
+        Fade.DOColor(fadeIncolor, 2);
+        Fade.gameObject.SetActive(false);
     }
 }
