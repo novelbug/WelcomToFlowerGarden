@@ -35,6 +35,12 @@ public class ButtonSetting : MonoBehaviour
     public void FadeIn()
     {
         Fade.DOColor(fadeIncolor, 2);
+        StartCoroutine(ChageFade());
+    }
+
+    IEnumerator ChageFade()
+    {
+        yield return new WaitForSecondsRealtime(2);
         Fade.gameObject.SetActive(false);
     }
 }
