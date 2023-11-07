@@ -47,4 +47,11 @@ public class WakeUpText : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
     }
+
+
+    public void HelpPedro()
+    {
+            talkBox.transform.DOScale(1,1).SetEase(Ease.InBounce);
+
+    }
 }

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] GameObject Pedro;
+    [SerializeField] GameObject ingameScene;
+    [SerializeField] GameObject growScene;
     private void Awake()
     {
         instance = this;
@@ -27,5 +30,21 @@ public class GameManager : MonoBehaviour
 
 
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            ingameScene.transform.DOMoveY(7, 1);
+            growScene.transform.DOMoveY(7, 1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            ingameScene.transform.DOMoveY(-3, 1);
+            growScene.transform.DOMoveY(-3, 1);
+        }
+
+    }
+    
 
 }
