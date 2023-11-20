@@ -16,12 +16,12 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    public void SpawnPadro()
+    public void SpawnPadro() //페드로 소환
     {
         Pedro.transform.DOMove(Vector3.up, 1).SetEase(Ease.OutBounce);
     }
 
-    public void MovePadro()
+    public void MovePadro() //페드로 옆으로 이동
     {
         Pedro.transform.DOScale(0.2f,2);
         Pedro.transform.DOMove(new Vector3(6,2,0), 2);
@@ -30,20 +30,30 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void Update()
+    private void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow)) //화면 하단이동
         {
-            ingameScene.transform.DOMoveY(7, 1);
-            growScene.transform.DOMoveY(7, 1);
+            MapMoveUp();
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow)) //화면 상단 이동
         {
-            ingameScene.transform.DOMoveY(-3, 1);
-            growScene.transform.DOMoveY(-3, 1);
+            MapMoveDown();
         }
 
+    }
+
+    public void MapMoveUp()
+    {
+        ingameScene.transform.DOMoveY(7, 1);
+        growScene.transform.DOMoveY(7, 1);
+    }
+
+    public void MapMoveDown()
+    {
+        ingameScene.transform.DOMoveY(-3, 1);
+        growScene.transform.DOMoveY(-3, 1);
     }
     
 
