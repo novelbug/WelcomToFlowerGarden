@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    //Vector2 mousPoint = Camera.main.ScreenToWorldPoint( new Vector2(Input.mousePosition.z, Input.mousePosition.y));
     [SerializeField] GameObject Pedro;
     [SerializeField] GameObject ingameScene;
     [SerializeField] GameObject growScene;
+    [SerializeField] List<GameObject> grows;
     private void Awake()
     {
         instance = this;
@@ -55,6 +58,15 @@ public class GameManager : MonoBehaviour
         ingameScene.transform.DOMoveY(-3, 1);
         growScene.transform.DOMoveY(-3, 1);
     }
-    
+
+    public void MoveIcon(int a)
+    {
+        grows[a].gameObject.transform.position = new Vector3(0, 0, 0);
+    }
+
+    public void StopIcon(int a)
+    {
+
+    }
 
 }
