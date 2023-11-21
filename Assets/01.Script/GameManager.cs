@@ -3,20 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    Vector3 mousPoint;
+
     public static GameManager instance;
-    //Vector2 mousPoint = Camera.main.ScreenToWorldPoint( new Vector2(Input.mousePosition.z, Input.mousePosition.y));
     [SerializeField] GameObject Pedro;
     [SerializeField] GameObject ingameScene;
     [SerializeField] GameObject growScene;
     [SerializeField] List<GameObject> grows;
+    [SerializeField] public List<GameObject> Changes;
+
+    private Camera mainCam;
     private void Awake()
     {
         instance = this;
+
+        mainCam = Camera.main;
+    }
+    private void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow)) //화면 하단이동
+        {
+            MapMoveUp();
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow)) //화면 상단 이동
+        {
+            MapMoveDown();
+        }
+
+        mousPoint = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void SpawnPadro() //페드로 소환
@@ -33,19 +52,6 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void Update() 
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow)) //화면 하단이동
-        {
-            MapMoveUp();
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow)) //화면 상단 이동
-        {
-            MapMoveDown();
-        }
-
-    }
 
     public void MapMoveUp()
     {
@@ -61,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void MoveIcon(int a)
     {
-        grows[a].gameObject.transform.position = new Vector3(0, 0, 0);
+        grows[a].gameObject.transform.position = mousPoint;
     }
 
     public void StopIcon(int a)
