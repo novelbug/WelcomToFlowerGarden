@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     Vector3 mousPoint;
+    bool ExitChack = false;
 
     public static GameManager instance;
     [SerializeField] GameObject Pedro;
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject growScene;
     [SerializeField] List<GameObject> grows;
     [SerializeField] public List<GameObject> Changes;
+    [SerializeField] Image Exit;
 
     private Camera mainCam;
     private void Awake()
@@ -25,6 +28,26 @@ public class GameManager : MonoBehaviour
     }
     private void Update() 
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!ExitChack)
+            {
+                Exit.gameObject.SetActive(true);
+                Exit.gameObject.transform.DOScale(1, 1f);
+                ExitChack = true;
+            }
+            else if(ExitChack)
+            {
+                Exit.gameObject.transform.DOScale(0, 1f);
+                StartCoroutine(waitTime());
+                Exit.gameObject.SetActive(false);
+                ExitChack = false;
+
+            }
+
+        }
+
+
         if (Input.GetKeyDown(KeyCode.DownArrow)) //화면 하단이동
         {
             MapMoveUp();
@@ -70,9 +93,14 @@ public class GameManager : MonoBehaviour
         grows[a].gameObject.transform.position = mousPoint;
     }
 
-    public void StopIcon(int a)
+    public void StopIcon(int a, Vector2 seedTransform)
     {
-        
+        grows[a].gameObject.transform.position = seedTransform;
     }
 
+
+    IEnumerator waitTime()
+    {
+       yield return new WaitForSecondsRealtime(1);
+    }
 }

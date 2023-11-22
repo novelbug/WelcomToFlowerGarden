@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pot
+  - Grow
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - pot
   - Water
   - UI
   - 

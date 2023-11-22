@@ -43,4 +43,9 @@ public class ButtonSetting : MonoBehaviour
         yield return new WaitForSecondsRealtime(2);
         Fade.gameObject.SetActive(false);
     }
+
+    public void ExitGame()
+    {
+       Application.Quit();
+    }
 }
