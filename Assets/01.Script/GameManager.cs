@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> grows;
     [SerializeField] public List<GameObject> Changes;
     [SerializeField] Image Exit;
+     public float textDelay = 0;
 
     private Camera mainCam;
     private void Awake()
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update() 
     {
+
+        textDelay += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!ExitChack)

@@ -35,6 +35,7 @@ public class Flowerinven : MonoBehaviour
     }
     public void DontUse()
     {
+        dontHavethis.gameObject.SetActive(true);
         dontHavethis.gameObject.transform.DOScale(1, 1f).SetEase(Ease.InBounce);
         dontHavethis.gameObject.transform.DOScale(0, 1f).SetDelay(2);
     }

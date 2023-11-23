@@ -12,10 +12,12 @@ public class WakeUpText : MonoBehaviour
     [SerializeField] TextMeshProUGUI _nameBox;
     [SerializeField] List<string> _talk;
     [SerializeField] List<string> _name;
+    [SerializeField] Image TextBar;
     ButtonSetting fadesystem;
     int _talkCount = 0;
     int _nameCount = 0;
-    bool Oktalk = true;
+    float textDelayTime = 0;
+    
 
 
     private void Awake()
@@ -26,10 +28,10 @@ public class WakeUpText : MonoBehaviour
 
     public void TalkStart()
     {
-        if(Oktalk)
+        if(GameManager.instance.textDelay > textDelayTime)
         {
-            Oktalk = false;
-            _talkBox.text = null;
+            
+            _talkBox.DOText(" ",0);
             _talkBox.DOText(_talk[_talkCount], 2);
             _nameBox.text = _name[_nameCount];
             _talkCount++;
@@ -43,8 +45,8 @@ public class WakeUpText : MonoBehaviour
                 talkBox.transform.DOScale(0,1).SetDelay(3).SetEase(Ease.InBounce);
                 GameManager.instance.MovePadro();
             }
-        StartCoroutine(WaitTime());
-        Oktalk = true;
+            GameManager.instance.textDelay = 0;
+            textDelayTime = 2;
         }
         
     }

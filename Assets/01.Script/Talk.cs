@@ -25,7 +25,7 @@ public class Talk : MonoBehaviour
 
 
     //시작과 동시에 타이핑시작
-    void Start()
+    void Awake()
     {
         Get_Typing(dialog_cnt, fulltext);
     }
@@ -122,12 +122,12 @@ public class Talk : MonoBehaviour
                 }
                 //단어하나씩출력
                 currentText = _fullText[cnt].Substring(0, i + 1);
-                this.GetComponent<TextMeshPro>().text = currentText;
+                this.GetComponentInChildren<TextMeshPro>().text = currentText;
                 yield return new WaitForSeconds(delay);
             }
             //탈출시 모든 문자출력
             Debug.Log("Typing 종료");
-            this.GetComponent<TextMeshPro>().text = _fullText[cnt];
+            this.GetComponentInChildren<TextMeshPro>().text = _fullText[cnt];
             yield return new WaitForSeconds(Skip_delay);
 
             //스킵_지연후 종료
