@@ -6,18 +6,22 @@ using Unity.VisualScripting;
 
 public class Flowerinven : MonoBehaviour
 {
-    bool DropIcorn = false;
-    Vector2 SeedTransform;
+    Seed seed;
+
+    private bool _isAttached = false;
+    public bool getUpflower = false;
+    Vector3 SeedTransform;
     [SerializeField] int IconNumber;
     [SerializeField] GameObject Icons;
     [SerializeField] Image dontHavethis;
     [SerializeField] List<GameObject> Growed;
     [SerializeField] GameObject GrowTransform;
+    [SerializeField] GameObject ground;
 
 
     private void Start()
     {
-        SeedTransform = gameObject.transform.position;
+        SeedTransform = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y+9.8f,0);
     }
 
     private void Update()
@@ -31,7 +35,7 @@ public class Flowerinven : MonoBehaviour
     
     public void ChackOut()
     {
-        DropIcorn = true;
+        Onstay();
     }
     public void DontUse()
     {
@@ -41,48 +45,56 @@ public class Flowerinven : MonoBehaviour
     }
 
 
-    public void ChangeFlower()
-    {
-        GameManager.instance.Changes[0].gameObject.layer = 2;
-        GameManager.instance.Changes[1].gameObject.layer = 0;
-        GameManager.instance.Changes[2].gameObject.layer = 0;
+    
+    
 
-    }
-    public void ChangeSun()
+    
+    public void Onstay()
     {
-        GameManager.instance.Changes[0].gameObject.layer = 0;
-        GameManager.instance.Changes[1].gameObject.layer = 2;
-        GameManager.instance.Changes[2].gameObject.layer = 0;
-    }
+       GameManager.instance.StopIcon(IconNumber,SeedTransform);
 
-    public void ChangeBug()
-    {
-        GameManager.instance.Changes[0].gameObject.layer = 0;
-        GameManager.instance.Changes[1].gameObject.layer = 0;
-        GameManager.instance.Changes[2].gameObject.layer = 2;
-    }
-    public void Onstay(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Pot") && DropIcorn)
+        if( _isAttached)
         {
-            Destroy(gameObject);
-            DropIcorn = false;
+            Seed.instance.groundPrefab.gameObject.SetActive(true);
+            Seed.instance.groundList[IconNumber].gameObject.SetActive(true);
+           
+            GrowFlower();
         }
-        else if (DropIcorn && collision)
+        else
         {
-            Debug.Log("adf");
-            GameManager.instance.StopIcon(IconNumber,SeedTransform);
-            DropIcorn = false;
-        }
+            GameManager.instance.grows[IconNumber].gameObject.transform.position = SeedTransform;
+        }    
+        
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Onstay(collision);
+        if (collision.gameObject.CompareTag("Pot"))
+        {
+            _isAttached = true;
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Pot"))
+        {
+            _isAttached = false;
+        }
     }
 
 
+    private void GrowFlower()
+    {
+       
+        Seed.instance.groundList[IconNumber].gameObject.transform.DOScale(0.3f,0.5f).SetDelay(10).SetEase(Ease.InBounce);
+        Seed.instance.groundList[IconNumber].gameObject.transform.DOScale(0.6f,0.5f).SetDelay(20).SetEase(Ease.InBounce);
+        Seed.instance.groundList[IconNumber].gameObject.transform.DOScale(1,0.5f).SetDelay(30).SetEase(Ease.InBounce);
+        getUpflower = true;
+    }
 
 
 

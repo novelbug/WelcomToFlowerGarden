@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Seed : MonoBehaviour
 {
-    [SerializeField] GameObject groundPrefab;
-    [SerializeField] List<GameObject> groundList;
-    [SerializeField] Vector2 Seedposition;
+    static public Seed instance;
+    [SerializeField] public GameObject groundPrefab;
+    [SerializeField] public List<GameObject> groundList;
 
-    public void SeedFlower()
+    private void Awake()
     {
-            groundPrefab.transform.position = Seedposition;
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
+    public void getFlower()
+    {
+           
     }
 }

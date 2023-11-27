@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/02.Ingame.unity
     guid: ab2a97e6a1a143a4a89e3164895e08f2
-  - enabled: 1
+  - enabled: 0
     path: Assets/00.Scenes/03.GrowFlower.unity
     guid: 10b2547bc0f8f1042bbab9d2e3679d6f
   - enabled: 1

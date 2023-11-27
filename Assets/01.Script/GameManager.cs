@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject Pedro;
     [SerializeField] GameObject ingameScene;
     [SerializeField] GameObject growScene;
-    [SerializeField] List<GameObject> grows;
+    [SerializeField] public List<GameObject> grows;
     [SerializeField] public List<GameObject> Changes;
     [SerializeField] Image Exit;
      public float textDelay = 0;
@@ -96,8 +96,9 @@ public class GameManager : MonoBehaviour
         grows[a].gameObject.transform.position = mousPoint;
     }
 
-    public void StopIcon(int a, Vector2 seedTransform)
+    public void StopIcon(int a, Vector3 seedTransform)
     {
+        Debug.Log(seedTransform);
         grows[a].gameObject.transform.position = seedTransform;
     }
 
@@ -105,5 +106,29 @@ public class GameManager : MonoBehaviour
     IEnumerator waitTime()
     {
        yield return new WaitForSecondsRealtime(1);
+    }
+
+    public void ChangeFlower()
+    {
+        Changes[0].gameObject.layer = 2;
+        Changes[1].gameObject.layer = 0;
+        Changes[2].gameObject.layer = 0;
+
+    }
+
+    public void ChangeSun()
+    {
+        Changes[0].gameObject.layer = 0;
+        Changes[1].gameObject.layer = 2;
+        Changes[2].gameObject.layer = 0;
+
+    }
+
+    public void ChangeBug()
+    {
+        Changes[0].gameObject.layer = 0;
+        Changes[1].gameObject.layer = 0;
+        Changes[2].gameObject.layer = 2;
+
     }
 }
